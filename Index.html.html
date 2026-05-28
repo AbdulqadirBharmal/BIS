@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bharmal Ironing & Laundry Services</title>
+    <!-- Tailwind CSS for modern look and layout -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="bg-slate-50 font-sans text-slate-900 antialiased min-h-screen pb-12">
+
+    <!-- NAVIGATION HEADER -->
+    <nav class="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-12 h-12 bg-gradient-to-br from-blue-600 to-cyan-500 rounded-xl flex items-center justify-center text-white font-black text-xl shadow-md tracking-wider">BI</div>
+                <div>
+                    <span class="text-xl font-black tracking-tight block text-slate-800">BHARMAL</span>
+                    <span class="text-xs font-bold text-cyan-600 tracking-widest uppercase block -mt-1">Ironing & Laundry</span>
+                </div>
+            </div>
+            <div class="flex items-center gap-4">
+                <a href="#services-section" class="text-sm font-semibold text-slate-600 hover:text-blue-600 hidden sm:block">Our Rates</a>
+                <a href="#tracker-section" class="text-sm font-semibold text-slate-600 hover:text-blue-600 hidden sm:block">Track Status</a>
+                <button onclick="openAdminModal()" class="bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold uppercase tracking-wider px-4 py-2.5 rounded-lg transition-all cursor-pointer">
+                    🔑 Admin Panel
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO / BUSINESS INFORMATION PROFILE -->
+    <header class="bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 text-white py-12 px-4 border-b border-slate-800 relative">
+        <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <div class="space-y-4">
+                <span class="bg-cyan-500 text-slate-950 text-xs font-black px-3 py-1 rounded-full uppercase tracking-widest">Premium Care</span>
+                <h1 class="text-4xl font-extrabold tracking-tight md:text-5xl">Bharmal Ironing Services</h1>
+                <p class="text-slate-300 text-sm max-w-md">Expert washing and heavy-duty crisp ironing tailored perfectly for traditional attire (Rida, Izar, Saya, Kurtas), formals, and daily wear.</p>
+                
+                <!-- Live Broadcast Offer Banner -->
+                <div class="bg-cyan-950/50 border border-cyan-500/30 p-3 rounded-xl flex items-center gap-3 max-w-sm">
+                    <span class="text-2xl">🏷️</span>
+                    <div>
+                        <h4 id="offerTitle" class="font-bold text-cyan-400 text-sm">Festive Clean Deal</h4>
+                        <p id="offerDesc" class="text-xs text-slate-300">Crisp heavy starch finish included free on all traditional attire order placements this week!</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Contact Details Card -->
+            <div class="bg-white/5 backdrop-blur-md p-6 rounded-2xl border border-white/10 space-y-3 text-xs text-slate-300">
+                <h3 class="text-white font-bold uppercase text-xs tracking-wider border-b border-white/10 pb-2 text-cyan-400">Official Firm Profile</h3>
+                <p><strong>Owner Name:</strong> Abdulqadir Mustafa Bharmal</p>
+                <p><strong>Contact Numbers:</strong> 9370595274, 9131507752</p>
+                <p><strong>Email:</strong> bharmalironingservices@gmail.com</p>
+                <p class="leading-relaxed text-slate-400"><strong>Shop Address:</strong> Plot No 60, Near Vinayakrao Deshmukh High School, Mudhliyar Chowk, Shantinagar Colony, Nagpur</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN APP CONTENT HUB -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+
+        <!-- ================= SERVICE CATALOG SELECTION MATRIX ================= -->
+        <section id="services-section" class="space-y-6">
+            <div class="border-b border-slate-200 pb-4">
+                <h2 class="text-2xl font-black text-slate-800 tracking-tight">Select Services & Clothes</h2>
+                <p class="text-sm text-slate-500">Add the quantity of clothes you want to wash or iron to generate an estimate.</p>
+            </div>
+
+            <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-xs overflow-x-auto">
+                <table class="w-full border-collapse text-left text-sm min-w-[600px]">
+                    <thead class="bg-slate-900 text-white uppercase text-[11px] tracking-wider">
+                        <tr>
+                            <th class="p-4 font-bold">Garment / Apparel Item</th>
+                            <th class="p-4 font-bold text-center">Washing Option</th>
+                            <th class="p-4 font-bold text-center">Ironing Option</th>
+                            <th class="p-4 font-bold text-right">Running Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody id="catalogTableBody" class="divide-y divide-slate-200 font-medium">
+                        <!-- Filled Programmatically by JavaScript state structure -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- ================= CUSTOMER INFO & INTAKE ORDER CHECKOUT ================= -->
+        <section class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-4 lg:col-span-1">
+                <h3 class="text-lg font-bold text-slate-800 tracking-tight">Customer Information</h3>
+                <p class="text-xs text-slate-500 -mt-2">Provide your contact details so we can arrange pickup and delivery tracking.</p>
+                
+                <div class="space-y-3 text-sm">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Your Full Name</label>
+                        <input id="custFormName" type="text" placeholder="e.g. Adnan Khan" class="w-full border border-slate-200 p-2.5 rounded-xl bg-slate-50 focus:outline-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Contact Number</label>
+                        <input id="custFormPhone" type="tel" placeholder="e.g. 9876543210" class="w-full border border-slate-200 p-2.5 rounded-xl bg-slate-50 focus:outline-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Delivery/Pickup Address</label>
+                        <textarea id="custFormAddress" rows="2" placeholder="House no, Street name, Landmark, Shantinagar Colony" class="w-full border border-slate-200 p-2.5 rounded-xl bg-slate-50 focus:outline-blue-500"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Payment Mode Choice</label>
+                        <select id="custFormPayment" class="w-full border border-slate-200 p-2.5 rounded-xl bg-slate-50 focus:outline-blue-500 font-medium">
+                            <option value="Cash">Cash on Delivery / Pickup</option>
+                            <option value="Online">Online Payment (UPI/Scanner)</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Running Basket Invoice Summary display block -->
+            <div class="bg-gradient-to-br from-blue-600 to-indigo-800 rounded-2xl p-6 text-white flex flex-col justify-between h-full lg:col-span-2 shadow-md">
+                <div class="space-y-2">
+                    <span class="bg-white/20 text-white text-[10px] font-bold tracking-widest uppercase px-2.5 py-1 rounded-md">Bharmal Order Dispatch Basket</span>
+                    <h3 class="text-2xl font-black tracking-tight pt-2">Estimated Booking Summary</h3>
+                    <p class="text-xs text-blue-100 max-w-md">Final totals are physically calculated, matched, and locked in your favor upon arrival at our workbench.</p>
+                </div>
+                
+                <div class="mt-8 border-t border-white/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-6">
+                    <div class="text-center sm:text-left">
+                        <span class="text-xs text-blue-200 uppercase tracking-wider font-bold block">Estimated Bill Total</span>
+                        <span id="globalEstimateDisplay" class="text-4xl font-black font-mono tracking-tight">₹0.00</span>
+                    </div>
+                    <button onclick="placeCustomerOrderMock()" class="w-full sm:w-auto bg-white hover:bg-slate-50 text-indigo-700 font-black px-8 py-4 rounded-xl text-sm transition-all shadow-md cursor-pointer text-center">
+                        Confirm & Request Pickup 📦
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= LIVE CONSUMER ORDER STATUS PIPELINE TRACKER ================= -->
+        <section id="tracker-section" class="bg-white border border-slate-200 rounded-3xl p-6 md:p-8 shadow-xs space-y-6">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 pb-6">
+                <div>
+                    <span class="bg-indigo-100 text-indigo-700 text-xs font-bold px-2.5 py-1 rounded-md uppercase tracking-wider">Order Status Lookup Portal</span>
+                    <h2 class="text-2xl font-black text-slate-800 tracking-tight mt-1">Real-Time Operational Timeline</h2>
+                </div>
+                <div class="bg-slate-50 border border-slate-200 p-3 rounded-xl flex items-center gap-6 text-xs font-mono font-bold">
+                    <div>
+                        <span class="text-slate-400 block uppercase tracking-wider text-[10px]">Active Order ID</span>
+                        <span id="trackerOrderIdDisplay" class="text-slate-800 text-sm">#ORD-EMPTY</span>
+                    </div>
+                    <div class="border-l border-slate-200 pl-6">
+                        <span class="text-slate-400 block uppercase tracking-wider text-[10px]">Processing ETA</span>
+                        <span id="trackerDurationDisplay" class="text-cyan-600 text-sm">-- Days, -- Hours</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dynamic Multi-Node 9-Step Pipeline Matrix Grid Layout -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-9 gap-3">
+                <div id="pipeNode-1" class="p-3 rounded-xl border border-slate-200 bg-slate-50 text-center transition-all duration-300">
+                    <div class="w-6 h-6 rounded-full bg-slate-200 text-slate-600 text-xs font-bold font-mono flex items-center justify-center mx-auto mb-1">1</div>
+                    <h4 class="font-bold text-slate-800 text-[11px] leading-tight">Order Placed</h4>
+                </div>
+                <div id="pipeNode-2" class="p-3 rounded-xl border border-slate-200 bg-slate-50 text-center transition-all duration-300">
+                    <div class="w-6 h-6 rounded-full bg-slate-200 text-slate-600 text-xs font-bold font-mono flex items-center justify-center mx-auto mb-1">2</div>
+                    <h4 class="font-bold text-slate-800 text-[11px] leading-tight">Cash/Online Setup</h4>
+                </div>
+                <div id="pipeNode-3" class="p-3 rounded-xl border border-slate-200 bg-slate-50 text-center transition-all duration-300">
+                    <div class="w-6 h-6 rounded-full bg-slate-200 text-slate-600 text-xs font-bold font-mono flex items-center justify-center mx-auto mb-1">3</div>
+                    <h4 class="font-bold text-slate-800 text-[11px] leading-tight">Processing ETA Set</h4>
+                </div>
+                <div id="pipeNode-4" class="p-3 rounded-xl border border-slate-200 bg-slate-50 text-center transition-all duration-300">
+                    <div class="w-6 h-6 rounded-full bg-slate-200 text-slate-600 text-xs font-bold font-mono flex items-center justify-center mx-auto mb-1">4</div>
+                    <h4 class="font-bold text-slate-800 text-[11px] leading-tight">Pickup Done</h4>
+                </div>
+                <div id="pipeNode-5" class="p-3 rounded-xl border border-slate-200 bg-slate-50 text-center transition-all duration-300">
+                    <div class="w-6 h-6 rounded-full bg-slate-200 text-slate-600 text-xs font-bold font-mono flex items-center justify-center mx-auto mb-1">5</div>
+                    <h4 class="font-bold text-slate-800 text-[11px] leading-tight">In Progress</h4>
+                </div>
+                <div id="pipeNode-6" class="p-3 rounded-xl border border-slate-200 bg-slate-50 text-center transition-all duration-300">
+                    <div class="w-6 h-6 rounded-full bg-slate-200 text-slate-600 text-xs font-bold font-mono flex items-center justify-center mx-auto mb-1">6</div>
+                    <h4 class="font-bold text-slate-800 text-[11px] leading-tight">Done</h4>
+                </div>
+                <div id="pipeNode-7" class="p-3 rounded-xl border border-slate-200 bg-slate-50 text-center transition-all duration-300">
+                    <div class="w-6 h-6 rounded-full bg-slate-200 text-slate-600 text-xs font-bold font-mono flex items-center justify-center mx-auto mb-1">7</div>
+                    <h4 class="font-bold text-slate-800 text-[11px] leading-tight">Out for Delivery 🚚</h4>
+                </div>
+                <div id="pipeNode-8" class="p-3 rounded-xl border border-slate-200 bg-slate-50 text-center transition-all duration-300">
+                    <div class="w-6 h-6 rounded-full bg-slate-200 text-slate-600 text-xs font-bold font-mono flex items-center justify-center mx-auto mb-1">8</div>
+                    <h4 class="font-bold text-slate-800 text-[11px] leading-tight">Payment Verified</h4>
+                </div>
+                <div id="pipeNode-9" class="p-3 rounded-xl border border-slate-200 bg-slate-50 text-center transition-all duration-300">
+                    <div class="w-6 h-6 rounded-full bg-slate-200 text-slate-600 text-xs font-bold font-mono flex items-center justify-center mx-auto mb-1">9</div>
+                    <h4 class="font-bold text-slate-800 text-[11px] leading-tight">Order Completed</h4>
+                </div>
+            </div>
+
+            <div class="w-full h-3 bg-slate-100 rounded-full border border-slate-200 overflow-hidden p-0.5 mt-2">
+                <div id="trackerProgressBar" class="h-full bg-gradient-to-r from-blue-500 via-indigo-500 to-emerald-500 rounded-full transition-all duration-500" style="width: 11%;"></div>
+            </div>
+        </section>
+
+        <!-- ================= CUSTOMER REVIEWS & RATING PORTAL ================= -->
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Review submission form item block -->
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 space-y-4 shadow-xs">
+                <div>
+                    <h3 class="text-lg font-bold text-slate-800 tracking-tight">Submit Review</h3>
+                    <p class="text-xs text-slate-500">Rate your experience with Bharmal Ironing Services on a 1-5 star scale.</p>
+                </div>
+                <div class="space-y-1">
+                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider">Rating Score</label>
+                    <div class="flex items-center gap-1 text-2xl text-amber-400" id="starSelectorContainer">
+                        <span onclick="setFormReviewStars(1)" class="cursor-pointer">★</span>
+                        <span onclick="setFormReviewStars(2)" class="cursor-pointer">★</span>
+                        <span onclick="setFormReviewStars(3)" class="cursor-pointer">★</span>
+                        <span onclick="setFormReviewStars(4)" class="cursor-pointer">★</span>
+                        <span onclick="setFormReviewStars(5)" class="cursor-pointer">★</span>
+                    </div>
+                </div>
+                <div class="space-y-2 text-sm">
+                    <input id="revInputName" type="text" placeholder="Your Name" class="w-full border border-slate-200 p-2.5 rounded-xl bg-slate-50">
+                    <textarea id="revInputComment" rows="2" placeholder="Review details (e.g. Sharp crease on Kurtas, timely pickup!)" class="w-full border border-slate-200 p-2.5 rounded-xl bg-slate-50"></textarea>
+                </div>
+                <button onclick="submitUserReviewForm()" class="w-full bg-slate-900 text-white font-bold text-xs uppercase tracking-wider py-3 rounded-xl cursor-pointer">Post Review</button>
+            </div>
+
+            <!-- Render Feed Wall entries display output block -->
+            <div class="md:col-span-2 bg-white p-6 rounded-2xl border border-slate-200 flex flex-col justify-between shadow-xs">
+                <div>
+                    <h3 class="text-lg font-bold text-slate-800 tracking-tight mb-4">Verified Client Reviews</h3>
+                    <div id="reviewsWallLayout" class="space-y-4 max-h-64 overflow-y-auto pr-1">
+                        <div class="border-b border-slate-100 pb-3 text-sm">
+                            <div class="flex items-center justify-between">
+                                <span class="font-bold text-slate-800">Mustafa Bhai</span>
+                                <span class="text-amber-400 font-mono">★★★★★</span>
+                            </div>
+                            <p class="text-slate-600 text-xs mt-1">Excellent ironing setup near Shantinagar colony. The starch finish on the Saya and Rida was immaculate!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ================= AUTHENTICATED ACCESS ADMIN CONTROL MODAL WINDOW ================= -->
+    <div id="adminModalOverlay" class="fixed inset-0 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 z-50 hidden">
+        
+        <!-- Login Phase Layout view container -->
+        <div id="adminLoginBlock" class="bg-white max-w-sm w-full rounded-2xl p-6 shadow-2xl space-y-4 border border-slate-200">
+            <div class="text-center">
+                <span class="text-3xl">🔒</span>
+                <h3 class="text-xl font-black text-slate-900 mt-2">Admin Identity Challenge</h3>
+                <p class="text-xs text-slate-500">Provide firm access keys to change prices and manage pipelines.</p>
+            </div>
+            <div class="space-y-3 text-sm">
+                <div>
+                    <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Admin ID</label>
+                    <input id="adminIdInput" type="text" class="w-full border border-slate-200 p-2.5 rounded-xl bg-slate-50 font-medium">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Security Password</label>
+                    <input id="adminPasswordInput" type="password" class="w-full border border-slate-200 p-2.5 rounded-xl bg-slate-50 font-medium">
+                </div>
+            </div>
+            <div class="flex gap-2 pt-2 text-xs font-bold uppercase tracking-wider">
+                <button onclick="closeAdminModal()" class="w-1/2 bg-slate-100 text-slate-600 py-3 rounded-xl cursor-pointer">Cancel</button>
+                <button onclick="authenticateAdminCredentials()" class="w-1/2 bg-blue-600 text-white py-3 rounded-xl cursor-pointer">Verify Log In</button>
+            </div>
+        </div>
+
+        <!-- Authorized Access Operations Panel Dashboard view layout -->
+        <div id="adminDashboardBlock" class="bg-slate-900 text-white max-w-4xl w-full rounded-2xl p-6 shadow-2xl space-y-6 hidden border border-slate-800 max-h-[90vh] overflow-y-auto">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+                <div>
+                    <h2 class="text-xl font-bold text-amber-400">⚙️ Management Engine Controls</h2>
+                    <p class="text-xs text-slate-400">Modify live store prices, broadcast offers, and update order statuses.</p>
+                </div>
+                <button onclick="closeAdminModal()" class="bg-slate-800 text-slate-400 hover:text-white px-3 py-1.5 rounded-lg text-xs font-bold font-mono">✕ Close Panel</button>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Management Panel Col 1: Base prices edit matrix layout template input variables -->
+                <div class="bg-slate-800/60 border border-slate-700/50 p-4 rounded-xl space-y-3">
+                    <h3 class="text-xs font-bold uppercase tracking-wider text-amber-400 border-b border-slate-700 pb-2">1. Modify Menu Prices (₹)</h3>
+                    <div id="adminPriceEditorContainer" class="space-y-2 max-h-64 overflow-y-auto pr-1">
+                        <!-- Generated Dynamically by JS Engine -->
+                    </div>
+                </div>
+
+                <!-- Management Panel Col 2: Pipeline status update variables assignment mapping -->
+                <div class="bg-slate-800/60 border border-slate-700/50 p-4 rounded-xl space-y-4">
+                    <h3 class="text-xs font-bold uppercase tracking-wider text-cyan-400 border-b border-slate-700 pb-2">2. Live Order Tracking Engine</h3>
+                    <div class="space-y-3 text-sm">
+                        <div>
+                            <label class="block text-[11px] text-slate-400 font-bold uppercase tracking-wider mb-1">Set Active Pipeline Step</label>
+                            <select id="adminStepSelect" onchange="syncActiveTrackerPipeline()" class="w-full bg-slate-700 rounded-lg p-2 border border-slate-600 focus:outline-emerald-500 font-medium">
+                                <option value="1">1. Order Placed</option>
+                                <option value="2">2. Payment Status Cash/Online</option>
+                                <option value="3">3. Estimated Processing Time Set</option>
+                                <option value="4">4. Pickup Done</option>
+                                <option value="5">5. In Progress</option>
+                                <option value="6">6. Done</option>
+                                <option value="7">7. Pickup/Out for Delivery 🚚</option>
+                                <option value="8">8. Payment Verified</option>
+                                <option value="9">9. Order Completed</option>
+                            </select>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div>
+                                <label class="block text-[11px] text-slate-400 font-bold uppercase tracking-wider mb-1">ETA (Days)</label>
+                                <input id="adminEtaDays" type="number" min="0" value="1" oninput="syncActiveTrackerPipeline()" class="w-full bg-slate-700 rounded-lg p-2 border border-slate-600 text-center font-mono font-bold">
+                            </div>
+                            <div>
+                                <label class="block text-[11px] text-slate-400 font-bold uppercase tracking-wider mb-1">ETA (Hours)</label>
+                                <input id="adminEtaHours" type="number" min="0" max="23" value="4" oninput="syncActiveTrackerPipeline()" class="w-full bg-slate-700 rounded-lg p-2 border border-slate-600 text-center font-mono font-bold">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Management Panel Col 3: Promotional broadcast banners layout settings details -->
+                <div class="bg-slate-800/60 border border-slate-700/50 p-4 rounded-xl space-y-3">
+                    <h3 class="text-xs font-bold uppercase tracking-wider text-indigo-400 border-b border-slate-700 pb-2">3. Add & Broadcast Offers</h3>
+                    <div class="space-y-3 text-sm">
+                        <div>
+                            <label class="block text-[11px] text-slate-400 font-bold uppercase tracking-wider mb-1">Offer Headline</label>
+                            <input id="adminOfferHeadline" type="text" class="w-full bg-slate-700 rounded-lg p-2 border border-slate-600">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] text-slate-400 font-bold uppercase tracking-wider mb-1">Offer Description Message</label>
+                            <textarea id="adminOfferMessage" rows="2" class="w-full bg-slate-700 rounded-lg p-2 border border-slate-600"></textarea>
+                        </div>
+                        <button onclick="broadcastAdminOffer()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2.5 rounded-xl text-xs uppercase tracking-wider cursor-pointer">Publish Live Offer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- BUSINESS DATA PROFILE FOOTER SECTION -->
+    <footer class="bg-slate-900 text-slate-400 text-xs border-t border-slate-800 py-8 mt-20 text-center space-y-2">
+        <p class="font-bold text-slate-200">BHARMAL IRONING SERVICES — Premium Laundry & Ironing Excellence</p>
+        <p>Plot No 60 Near Vinayakrao Deshmukh High School Mudhliyar Chowk Shantinagar Colony Nagpur</p>
+        <p class="text-slate-600 pt-4">&copy; 2026 Bharmal Ironing Services. System Engine Blueprint Layout.</p>
+    </footer>
+
+    <!-- ================= SYSTEM CORE MANAGEMENT CONTROLLER LOGIC ENGINE ================= -->
+    <script>
+        // CENTRAL DATABASE APPLICATION STATE DATA MANAGEMENT STRUCTURE
+        let appState = {
+            currentSelectedReviewStars: 5,
+            activeCustomerOrderId: "#BMS-7402",
+            catalogItems: [
+                { name: "Izar", washPrice: 40, ironPrice: 15, washQty: 0, ironQty: 0, hasWash: true, hasIron: true },
+                { name: "Kurta", washPrice: 50, ironPrice: 20, washQty: 0, ironQty: 0, hasWash: true, hasIron: true },
+                { name: "Saya", washPrice: 60, ironPrice: 25, washQty: 0, ironQty: 0, hasWash: true, hasIron: true },
+                { name: "Shirt", washPrice: 30, ironPrice: 12, washQty: 0, ironQty: 0, hasWash: true, hasIron: true },
+                { name: "Pant", washPrice: 35, ironPrice: 15, washQty: 0, ironQty: 0, hasWash: true, hasIron: true },
+                { name: "Kurti", washPrice: 45, ironPrice: 18, washQty: 0, ironQty: 0, hasWash: true, hasIron: true },
+                { name: "Salwar", washPrice: 40, ironPrice: 15, washQty: 0, ironQty: 0, hasWash: true, hasIron: true },
+                { name: "Rida", washPrice: 80, ironPrice: 35, washQty: 0, ironQty: 0, hasWash: true, hasIron: true },
+                { name: "Blazer", washPrice: 150, ironPrice: 60, washQty: 0, ironQty: 0, hasWash: true, hasIron: true },
+                { name: "Jackets", washPrice: 120, ironPrice: 50, washQty: 0, ironQty: 0, hasWash: true, hasIron: true },
+                { name: "Topi", washPrice: 25, ironPrice: 0, washQty: 0, ironQty: 0, hasWash: true, hasIron: false },
+                { name: "Caps", washPrice: 20, ironPrice: 0, washQty: 0, ironQty: 0, hasWash: true, hasIron: false }
+            ]
+        };
+
+        // ADMIN OVERLAY LAYER SYSTEM CONTROL MANAGEMENT FUNCTIONS
+        function openAdminModal() {
+            document.getElementById('adminModalOverlay').classList.remove('hidden');
+            document.getElementById('adminLoginBlock').classList.remove('hidden');
+            document.getElementById('adminDashboardBlock').classList.add('hidden');
+        }
+
+        function closeAdminModal() {
+            document.getElementById('adminModalOverlay').classList.add('hidden');
+        }
+
+        // CONTROL CHALLENGE IDENTIFICATION MATCH LOGIC CHECK VALUES
+        function authenticateAdminCredentials() {
+            const enteredId = document.getElementById('adminIdInput').value;
+            const enteredPass = document.getElementById('adminPasswordInput').value;
+
+            if (enteredId === "Abdul53a" && enteredPass === "QAZ01mlp") {
+                document.getElementById('adminLoginBlock').classList.add('hidden');
+                document.getElementById('adminDashboardBlock').classList.remove('hidden');
+                populateAdminPriceEditorList();
+            } else {
+                alert("Invalid Security Keys provided. Please verify ID and Password values.");
+            }
+        }
+
+        // GENERATE AND POPULATE LIST EDIT INTERFACES DYNAMICALLY
+        function populateAdminPriceEditorList() {
+            const container = document.getElementById('adminPriceEditorContainer');
+            container.innerHTML = "";
+
+            appState.catalogItems.forEach((item, index) => {
+                let card = document.createElement('div');
+                card.className = "bg-slate-800 p-2.5 rounded-lg text-xs space-y-1.5 border border-slate-700 shadow-sm";
+
+                let inputsHTML = `<div class="font-bold text-slate-200 border-b border-slate-700 pb-1 mb-1">${item.name}</div>`;
+                if(item.hasWash) {
+                    inputsHTML += `<div class="flex items-center justify-between"><span>Wash Price:</span><input type="number" value="${item.washPrice}" oninput="mutateBasePrices(${index}, 'wash', this.value)" class="w-16 bg-slate-900 text-right text-cyan-400 rounded p-1 font-mono font-bold"></div>`;
+                }
+                if(item.hasIron) {
+                    inputsHTML += `<div class="flex items-center justify-between"><span>Iron Price:</span><input type="number" value="${item.ironPrice}" oninput="mutateBasePrices(${index}, 'iron', this.value)" class="w-16 bg-slate-900 text-right text-amber-400 rounded p-1 font-mono font-bold"></div>`;
+                }
+
+                card.innerHTML = inputsHTML;
+                container.appendChild(card);
+            });
+        }
+
+        function mutateBasePrices(index, mode, val) {
+            let floatVal = parseFloat(val) || 0;
+            if(mode === 'wash') appState.catalogItems[index].washPrice = floatVal;
+            if(mode === 'iron') appState.catalogItems[index].ironPrice = floatVal;
+            renderClientMatrixCatalog();
+            recalculateRunningInvoiceEstimation();
+        }
+
+        // RE-CALCULATE AND MAP PIPELINE PROGRESS DATA CHANNELS
+        function syncActiveTrackerPipeline() {
+            const currentStep = parseInt(document.getElementById('adminStepSelect').value);
+            const days = document.getElementById('adminEtaDays').value || 0;
+            const hours = document.getElementById('adminEtaHours').value || 0;
+
+            // Map and update running text nodes values on customer view screen targets
+            document.getElementById('trackerDurationDisplay').innerText = `${days} Days, ${hours} Hours`;
+            
+            const fillWidthPercentage = (currentStep / 9) * 100;
+            document.getElementById('trackerProgressBar').style.width = `${fillWidthPercentage}%`;
+
+            for (let i = 1; i <= 9; i++) {
+                const stepNode = document.getElementById(`pipeNode-${i}`);
+                const badgeNode = stepNode.querySelector('div');
+
+                if(i <= currentStep) {
+                    stepNode.className = "p-3 rounded-xl border border-emerald-200 bg-emerald-50/90 text-center ring-1 ring-emerald-100 transition-all duration-300";
+                    badgeNode.className = "w-6 h-6 rounded-full bg-emerald-600 text-white text-xs font-bold font-mono flex items-center justify-center mx-auto mb-1 shadow-sm";
+                } else {
+                    stepNode.className = "p-3 rounded-xl border border-slate-200 bg-slate-50 text-center transition-all duration-300";
+                    badgeNode.className = "w-6 h-6 rounded-full bg-slate-200 text-slate-600 text-xs font-bold font-mono flex items-center justify-center mx-auto mb-1 shadow-inner";
+                }
+            }
+        }
+
+        function broadcastAdminOffer() {
+            const heading = document.getElementById('adminOfferHeadline').value;
+            const msg = document.getElementById('adminOfferMessage').value;
+
+            if(heading && msg) {
+                document.getElementById('offerTitle').innerText = heading;
+                document.getElementById('offerDesc').innerText = msg;
+                alert("Promotional broadcasting message variables updated successfully.");
+            } else {
+                alert("Please fill out both the offer headline and message before publishing.");
+            }
+        }
+
+        // GENERATE STRUCTURAL CUSTOMER INTERFACES
+        function renderClientMatrixCatalog() {
+            const tbody = document.getElementById('catalogTableBody');
+            tbody.innerHTML = "";
+
+            appState.catalogItems.forEach((item, index) => {
+                const row = document.createElement('tr');
+                row.className = "hover:bg-slate-50/80 transition-colors";
+
+                let washCellHTML = item.hasWash ? `
+                    <div class="flex items-center justify-center gap-2">
+                        <button onclick="changeBasketQuantity(${index}, 'wash', -1)" class="w-7 h-7 rounded-md bg-slate-100 border border-slate-200 flex items-center justify-center text-sm font-bold cursor-pointer">-</button>
+                        <span id="label-wash-qty-${index}" class="w-6 text-center font-mono text-sm">${item.washQty}</span>
+                        <button onclick="changeBasketQuantity(${index}, 'wash', 1)" class="w-7 h-7 rounded-md bg-slate-100 border border-slate-200 flex items-center justify-center text-sm font-bold cursor-pointer">+</button>
+                        <span class="text-xs text-slate-400 font-mono ml-1">(₹${item.washPrice})</span>
+                    </div>` : `<span class="text-slate-400 italic text-xs">No Wash</span>`;
+
+                let ironCellHTML = item.hasIron ? `
+                    <div class="flex items-center justify-center gap-2">
+                        <button onclick="changeBasketQuantity(${index}, 'iron', -1)" class="w-7 h-7 rounded-md bg-slate-100 border border-slate-200 flex items-center justify-center text-sm font-bold cursor-pointer">-</button>
+                        <span id="label-iron-qty-${index}" class="w-6 text-center font-mono text-sm">${item.ironQty}</span>
+                        <button onclick="changeBasketQuantity(${index}, 'iron', 1)" class="w-7 h-7 rounded-md bg-slate-100 border border-slate-200 flex items-center justify-center text-sm font-bold cursor-pointer">+</button>
+                        <span class="text-xs text-slate-400 font-mono ml-1">(₹${item.ironPrice})</span>
+                    </div>` : `<span class="text-slate-400 italic text-xs">No Iron</span>`;
+
+                let lineTotal = (item.washQty * item.washPrice) + (item.ironQty * item.ironPrice);
+
+                row.innerHTML = `
+                    <td class="p-4 font-bold text-slate-800 tracking-tight">${item.name}</td>
+                    <td class="p-4 text-center">${washCellHTML}</td>
+                    <td class="p-4 text-center">${ironCellHTML}</td>
+                    <td id="label-subtotal-${index}" class="p-4 text-right font-mono font-bold text-slate-700">₹${lineTotal.toFixed(2)}</td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function changeBasketQuantity(index, type, modifier) {
+            let targetItem = appState.catalogItems[index];
+            if(type === 'wash') targetItem.washQty = Math.max(0, targetItem.washQty + modifier);
+            if(type === 'iron') targetItem.ironQty = Math.max(0, targetItem.ironQty + modifier);
+
+            document.getElementById(`label-${type}-qty-${index}`).innerText = (type === 'wash') ? targetItem.washQty : targetItem.ironQty;
+            
+            let updatedLineCost = (targetItem.washQty * targetItem.washPrice) + (targetItem.ironQty * targetItem.ironPrice);
+            document.getElementById(`label-subtotal-${index}`).innerText = `₹${updatedLineCost.toFixed(2)}`;
+
+            recalculateRunningInvoiceEstimation();
+        }
+
+        function recalculateRunningInvoiceEstimation() {
+            let runningSum = 0;
+            appState.catalogItems.forEach(item => {
+                runningSum += (item.washQty * item.washPrice) + (item.ironQty * item.ironPrice);
+            });
+            document.getElementById('globalEstimateDisplay').innerText = `₹${runningSum.toFixed(2)}`;
+        }
+
+        // CONSUME COMPONENT FORM DATA GENERATION TRIGGERS
+        function placeCustomerOrderMock() {
+            const name = document.getElementById('custFormName').value.trim();
+            const phone = document.getElementById('custFormPhone').value.trim();
+            const address = document.getElementById('custFormAddress').value.trim();
+            const payment = document.getElementById('custFormPayment').value;
+
+            if(!name || !phone || !address) {
+                alert("Please fill out your Name, Phone Number, and Address details to submit the booking.");
+                return;
+            }
+
+            // Mock generation values assign to simulate operational cycle
+            const randomizedOrderId = "#BMS-" + Math.floor(1000 + Math.random() * 9000);
+            appState.activeCustomerOrderId = randomizedOrderId;
+            
+            document.getElementById('trackerOrderIdDisplay').innerText = randomizedOrderId;
+            document.getElementById('trackerDurationDisplay').innerText = "1 Days, 4 Hours";
+            
+            alert(`Order received successfully, ${name}!\nYour tracking ID is ${randomizedOrderId}. Your payment method choice is [${payment}]. We will collect your items from Shantinagar Colony shortly.`);
+            
+            // Auto scroll to tracker component display
+            document.getElementById('tracker-section').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // RATING ELEMENTS SELECTION CONFIGURATOR ACTIONS
+        function setFormReviewStars(stars) {
+            appState.currentSelectedReviewStars = stars;
+            const containerNodes = document.getElementById('starSelectorContainer').children;
+            for (let i = 0; i < 5; i++) {
+                containerNodes[i].className = (i < stars) ? "cursor-pointer text-amber-400" : "cursor-pointer text-slate-300";
+            }
+        }
+
+        function submitUserReviewForm() {
+            const author = document.getElementById('revInputName').value.trim() || "Anonymous Customer";
+            const comment = document.getElementById('revInputComment').value.trim();
+
+            if(!comment) {
+                alert("Please type a short comment regarding our cleaning quality before posting.");
+                return;
+            }
+
+            let ratingBarStr = "";
+            for (let i = 0; i < 5; i++) {
+                ratingBarStr += (i < appState.currentSelectedReviewStars) ? "★" : "☆";
+            }
+
+            const feedTarget = document.getElementById('reviewsWallLayout');
+            const reviewCard = document.createElement('div');
+            reviewCard.className = "border-b border-slate-100 pb-3 text-sm";
+            reviewCard.innerHTML = `
+                <div class="flex items-center justify-between">
+                    <span class="font-bold text-slate-800">${author}</span>
+                    <span class="text-amber-400 font-mono">${ratingBarStr}</span>
+                </div>
+                <p class="text-slate-600 text-xs mt-1">${comment}</p>
+            `;
+
+            feedTarget.insertBefore(reviewCard, feedTarget.firstChild);
+            
+            // Clean inputs
+            document.getElementById('revInputName').value = "";
+            document.getElementById('revInputComment').value = "";
+            setFormReviewStars(5);
+        }
+
+        // LIFECYCLE WINDOW STARTUP INTENT COUPLINGS
+        window.onload = function() {
+            renderClientMatrixCatalog();
+            syncActiveTrackerPipeline();
+        }
+    </script>
+</body>
+</html>
